@@ -1,10 +1,13 @@
 import './App.css';
+import GuessingBlocks from './Components/GuessingBlocks.js'
 import { useState, useEffect } from 'react';
+
 
 
 function App() {
   const [data, setData] = useState({});
   const [load, setLoad] = useState(false);
+  const [sentenceArr, setSentenceArr] = useState([])
 
   const randoNum = (wordLength) => {
     const num = Math.floor(Math.random() * wordLength);
@@ -13,7 +16,6 @@ function App() {
 
   const wordMixer = (word) => {
 
-    const originalWord = word;
     let wordArr = word.split('')
     let firstLetter = wordArr.splice(0, 1)
     let lastLetter = wordArr.splice(wordArr.length - 1, 1)
@@ -32,7 +34,6 @@ function App() {
   }
 
   const sentenceMixer = (sentence) => {
-    console.log(sentence)
 
     let sentenceArr = sentence.split(' ');
     let mixedArr = []
@@ -54,16 +55,26 @@ function App() {
     fetch('https://api.hatchways.io/assessment/sentences/1')
     .then(response => response.json())
     .then(data => {
+      setSentenceArr(data.data.sentence.split(' '))
       setData(data.data);
       setLoad(true)
     });
 
   }, [])
 
+
+
+
+
   if (load) {
     return (
       <div className="App">
         {sentenceMixer(data.sentence)}
+        {data.sentence.split('').map((word) => {
+          return(
+            <GuessingBlocks/>
+          )
+        })}
       </div>
     );
   } else {
