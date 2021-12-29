@@ -55,7 +55,7 @@ function App() {
     fetch('https://api.hatchways.io/assessment/sentences/1')
     .then(response => response.json())
     .then(data => {
-      setSentenceArr(data.data.sentence.split(' '))
+      setSentenceArr(data.data.sentence.split(''))
       setData(data.data);
       setLoad(true)
     });
@@ -72,7 +72,7 @@ function App() {
         {sentenceMixer(data.sentence)}
         {data.sentence.split('').map((word) => {
           return(
-            <GuessingBlocks/>
+            <GuessingBlocks sentence={sentenceArr}/>
           )
         })}
       </div>

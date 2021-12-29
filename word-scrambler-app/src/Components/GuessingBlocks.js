@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const GuessingBlocks = () => {
+const GuessingBlocks = ({ sentence }) => {
 
   const [userInput, setUserInput] = useState('')
 
@@ -9,8 +9,16 @@ const GuessingBlocks = () => {
     setUserInput(e.target.value)
   }
 
+for (let i = 0; i < sentence.length; i++) {
+  if(userInput === sentence[i]) {
+    console.log('correct')
+  } else {
+    console.log('wrong ')
 
-console.log(userInput)
+  }
+}
+
+
 
   return (
     <div>
